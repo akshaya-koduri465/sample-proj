@@ -17,7 +17,7 @@ def create_products(db: Session, products: schemas.productCreate):
 def get_products(db: Session):
     return db.query(models.products).all() #fetch the data from products table
 
-def get_products(db: Session, products_id: int): #if only need one product
+def get_product(db: Session, products_id: int): #if only need one product
     return db.query(models.products).filter(
         models.products.id == products_id
     ).first()
