@@ -2,7 +2,7 @@ from sqlalchemy.orm import Session
 import models
 import schemas
 
-def create_products(db: Session, products: schemas.productCreate):
+def create_product(db: Session, products: schemas.productCreate):
     #creating  a products object with user values
     db_products = models.products(**products.model_dump())
     #adding new products to existing table
@@ -23,7 +23,7 @@ def get_product(db: Session, products_id: int): #if only need one product
     ).first()
 
 def update_products(db: Session, products_id: int, products: schemas.productCreate):
-    db_products = get_products(db, products_id)
+    db_products = get_product(db, products_id)
     if not db_products:
         return None
     db_products.name = products.name
@@ -36,8 +36,8 @@ def update_products(db: Session, products_id: int, products: schemas.productCrea
     db.refresh(db_products)
     return db_products
 
-def delete_products(db: Session, products_id: int):
-    db_products = get_products(db, products_id)
+def delete_product(db: Session, products_id: int):
+    db_products = get_product(db, products_id)
     if not db_products:
         return None
     db.delete(db_products)
@@ -46,7 +46,7 @@ def delete_products(db: Session, products_id: int):
 
 
 
-def get_prod_by_brand(db:Session,brand:str):
+def get_emp_by_brand(db:Session,brand:str):
     print(brand)
     return db.query(models.products).filter(
         models.products.brand==brand

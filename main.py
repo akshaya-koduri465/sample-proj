@@ -21,7 +21,7 @@ def get_db():
 
 @app.post("/products", response_model=schemas.productResponse)
 def create(products: schemas.productCreate, db: Session = Depends(get_db)):
-    return crud.create_product(db, products)
+    return crud.create_products(db, products)
 
 @app.get("/products", response_model=list[schemas.productResponse])
 def read_all(db: Session = Depends(get_db)):
@@ -35,15 +35,15 @@ def read_one(product_id: int, db: Session = Depends(get_db)):
     return product
 
 @app.put("/products/{product_id}", response_model=schemas.productResponse)
-def update(products_id: int, product: schemas.productCreate, db: Session = Depends(get_db)):
-    updated = crud.update_products(db, products_id, product)
+def update(product_id: int, product: schemas.productCreate, db: Session = Depends(get_db)):
+    updated = crud.update_products(db, product_id, product)
     if not updated:
         raise HTTPException(status_code=404, detail="product not found")
     return updated
 
 @app.delete("/products/{product_id}")
 def delete(product_id: int, db: Session = Depends(get_db)):
-    deleted = crud.delete_product(db, product_id)
+    deleted = crud.delete_products(db, product_id)
     if not deleted:
         raise HTTPException(status_code=404, detail="product not found")
     return {"message":"product deleted successfully"}
@@ -53,4 +53,4 @@ def delete(product_id: int, db: Session = Depends(get_db)):
 
 @app.get("/brand/{brand}")
 def get_brand_emp(brand:str,db:Session=Depends(get_db)):
-    return crud.get_emp_by_brand(db,brand)
+    return crud.get_prod_by_brand(db,brand)
