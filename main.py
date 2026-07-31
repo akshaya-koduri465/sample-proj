@@ -29,7 +29,7 @@ def read_all(db: Session = Depends(get_db)):
 
 @app.get("/products/{product_id}", response_model=schemas.productResponse)
 def read_one(product_id: int, db: Session = Depends(get_db)):
-    product = crud.get_product(db, product_id)
+    product = crud.get_products(db, product_id)
     if not product:
         raise HTTPException(status_code=404, detail="product not found")
     return product
