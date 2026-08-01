@@ -1,8 +1,7 @@
 from pydantic import BaseModel,condecimal
 from typing import Annotated #it is used to validate the data and 
 class productCreate(BaseModel):
-    category: str
-    department:str 
+    category: str 
     name:str
     brand:str
     model:str
