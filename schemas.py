@@ -11,5 +11,25 @@ class productResponse(productCreate):
     id: int
 
     model_config = {
+      
         "from_attributes": True
     }
+
+
+class UserCreate(BaseModel):
+    name:str
+    email:str
+    password:str
+
+
+class UserResponse(UserCreate):
+    id: int
+
+    model_config = {
+        "from_attributes": True
+    }
+
+
+class UserLogin(BaseModel):
+    email:str 
+    password:str
