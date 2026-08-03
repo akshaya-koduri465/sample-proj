@@ -15,7 +15,8 @@ ALGORITHM = "HS256"
 # Create Product
 def create_products(db: Session, products: schemas.productCreate):
     db_products = models.products(**products.model_dump())
-    hashed=bcrypt.hashpw(db_products.password.encode(),bcrypt.gensalt(rounds=13).decode("utf-8"))
+
+    
     db.add(db_products)
     db.commit()
     db.refresh(db_products)
